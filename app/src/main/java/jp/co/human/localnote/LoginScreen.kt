@@ -51,6 +51,14 @@ fun LoginScreen(){
             Text("入力を確認")
         }
         Text(message.value)
+
+        Button(onClick = {
+            loginId.value = ""
+            password.value = ""
+            message.value = ""
+        }) {
+            Text("クリア")
+        }
     }
 }
 
