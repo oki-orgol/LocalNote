@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     Column (
                         modifier = Modifier.padding(innerPadding)
                     ){
-                        Counter()
+                        LoginScreen()
                     }
                 }
             }
