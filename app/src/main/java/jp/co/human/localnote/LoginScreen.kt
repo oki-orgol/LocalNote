@@ -44,6 +44,13 @@ fun LoginScreen(){
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
+
+        Button(onClick = {
+            message.value = "入力したID：" + loginId.value
+        }) {
+            Text("入力を確認")
+        }
+        Text(message.value)
     }
 }
 
