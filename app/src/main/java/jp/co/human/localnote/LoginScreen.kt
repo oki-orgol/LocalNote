@@ -17,9 +17,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun LoginScreen(){
+fun LoginScreen(onLogin: () -> Unit){
 
     val loginId = rememberSaveable{ mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("")}
@@ -46,9 +49,15 @@ fun LoginScreen(){
         )
 
         Button(onClick = {
-            message.value = "入力したID：" + loginId.value
+            message.value = loginError(
+                loginId.value.trim(), password.value
+            )
+            if (message.value.isEmpty()){
+                password.value = ""
+                onLogin()
+            }
         }) {
-            Text("入力を確認")
+            Text("ログイン")
         }
         Text(message.value)
 
@@ -60,6 +69,17 @@ fun LoginScreen(){
             Text("クリア")
         }
     }
+}
+
+fun loginError(id: String, password: String): String{
+    if (id.isBlank() || password.isBlank())
+    {
+        return "IDとパスワードを入力してください"
+    }
+    if (id != "student" || password != "practice123"){
+        return "IDまたはパスワードが違います"
+    }
+    return ""
 }
 
 @Composable
