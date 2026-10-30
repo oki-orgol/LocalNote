@@ -15,7 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import jp.co.human.localnote.ui.theme.LocalNoteTheme
-import org.w3c.dom.Text
+// import org.w3c.dom.Text
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     Column (
                         modifier = Modifier.padding(innerPadding)
                     ){
-                        LoginScreen()
+                        App()
                     }
                 }
             }
