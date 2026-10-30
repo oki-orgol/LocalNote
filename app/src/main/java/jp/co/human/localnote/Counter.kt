@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
@@ -11,7 +12,7 @@ import androidx.compose.runtime.remember
 @Composable
 fun Counter(){
     // var num = 0
-    val count = remember{mutableStateOf(0)}
+    val count = remember{ mutableStateOf(0) }
 //    val message = remember {
 //        mutableStateOf("こんにちは")
 //    }
@@ -23,7 +24,7 @@ fun Counter(){
         Button(
             onClick = {
                 // 押したときの処理
-                count.value = count.value + 1
+                count.value += 1
             }) {
             Text("増やす")
         }
