@@ -12,9 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import jp.co.human.localnote.ui.theme.LocalNoteTheme
+import kotlinx.coroutines.launch
+
 // import org.w3c.dom.Text
 
 class MainActivity : ComponentActivity() {
@@ -61,5 +65,22 @@ fun MainActivityPreview() {
     LocalNoteTheme {
         MainScreen()
 
+    }
+}
+
+@Composable
+fun DatabaseCheckScreen() {
+    val context = LocalContext.current
+    val db = remember { DbProvider.get(context) }
+    val scope = rememberCoroutineScope()
+    val result = remember { mutableStateOf("") }
+
+    ScreenFrame {
+        Button(onClick = {
+            scope.launch {
+                result.value = "登録件数：" + db.userDao().count()
+            }
+        }) { Text("DBを確認") }
+        Text(result.value)
     }
 }
