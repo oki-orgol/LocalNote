@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -18,7 +19,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginScreen(onLogin: () -> Unit){
+fun LoginScreen(onLogin: () -> Unit, onRegister: () -> Unit){
 
     val loginId = rememberSaveable{ mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("")}
@@ -63,6 +64,10 @@ fun LoginScreen(onLogin: () -> Unit){
             message.value = ""
         }) {
             Text("クリア")
+        }
+
+        TextButton(onClick = onRegister){
+            Text("新規ユーザー登録")
         }
     }
 }
