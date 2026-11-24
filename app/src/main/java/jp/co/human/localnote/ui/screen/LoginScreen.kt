@@ -96,17 +96,6 @@ fun LoginScreen(onLogin: (String) -> Unit, onRegister: () -> Unit){
     }
 }
 
-fun loginError(id: String, password: String): String{
-    if (id.isBlank() || password.isBlank())
-    {
-        return "IDとパスワードを入力してください"
-    }
-    if (id != "student" || password != "practice123"){
-        return "IDまたはパスワードが違います"
-    }
-    return ""
-}
-
 @Composable
 fun ScreenFrame(content: @Composable ColumnScope.() -> Unit){
     Column(

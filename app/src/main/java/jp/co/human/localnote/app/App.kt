@@ -28,7 +28,9 @@ fun App(){
             )
         }
         composable("home") {
-            HomeScreen(onLogout = {
+            HomeScreen(
+                userId = userId.value,
+                onLogout = {
                 userId.value = ""
                 nav.navigate("login") {
                     popUpTo("home") { inclusive = true}
