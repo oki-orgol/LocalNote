@@ -1,16 +1,15 @@
-package jp.co.human.localnote
+package jp.co.human.localnote.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 // 20261023課題
 @Composable
-fun Counter(){
+fun CounterScreen(){
     // var num = 0
     val count = remember{ mutableStateOf(0) }
 //    val message = remember {
