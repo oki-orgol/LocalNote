@@ -84,6 +84,7 @@ fun RegisterScreen(onDone: () -> Unit) {
                     ))
                     if (rowId == -1L) {
                         error.value = "別のIDを使ってください"
+                        idError.value = true
                     }else{
                         onDone()
                     }
