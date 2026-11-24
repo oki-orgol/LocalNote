@@ -1,8 +1,9 @@
-package jp.co.human.localnote
+package jp.co.human.localnote.database.provider
 
 import android.content.Context
 import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import jp.co.human.localnote.database.AppDatabase
 
 object  DbProvider {
     @Volatile private var instance: AppDatabase? = null
