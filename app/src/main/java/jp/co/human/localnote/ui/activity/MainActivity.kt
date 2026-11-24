@@ -1,4 +1,4 @@
-package jp.co.human.localnote
+package jp.co.human.localnote.ui.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,6 +16,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import jp.co.human.localnote.app.App
+import jp.co.human.localnote.database.provider.DbProvider
+import jp.co.human.localnote.ui.screen.ScreenFrame
 import jp.co.human.localnote.ui.theme.LocalNoteTheme
 import kotlinx.coroutines.launch
 
