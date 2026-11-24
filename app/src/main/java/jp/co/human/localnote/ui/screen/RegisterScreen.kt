@@ -23,22 +23,57 @@ fun RegisterScreen(onDone: () -> Unit) {
     val pass = rememberSaveable {mutableStateOf("")}
     val name = rememberSaveable {mutableStateOf("")}
     val error = remember { mutableStateOf("") }
+    val idError = remember { mutableStateOf(false) }
+    val passError = remember { mutableStateOf(false) }
+    val nameError = remember { mutableStateOf(false) }
     val saving = remember { mutableStateOf(false)}
 
     ScreenFrame{
         Text("新規ユーザー登録")
-        TextField(id.value, {id.value = it},
-            label = {Text("ID")})
-        TextField(pass.value, {pass.value = it},
-            label = {Text("パスワード")})
-        TextField(name.value, {name.value = it},
-            label = {Text("名前")})
+        TextField(id.value,
+            {id.value = it},
+            label = {Text("ID")},
+            isError = idError.value,
+            singleLine = true
+        )
+        TextField(pass.value,
+            {pass.value = it},
+            label = {Text("パスワード")},
+            isError = passError.value,
+            singleLine = true
+        )
+        TextField(name.value,
+            {name.value = it},
+            label = {Text("名前")},
+            isError = nameError.value,
+            singleLine = true
+        )
 
         Button(enabled = !saving.value, onClick = {
-            if (id.value.isBlank() || pass.value.isBlank() || name.value.isBlank()) {
+            idError.value = false
+            passError.value = false
+            nameError.value = false
+            error.value = ""
+
+            if (id.value.isBlank()) idError.value = true
+            if (pass.value.isBlank()) passError.value = true
+            if (name.value.isBlank()) nameError.value = true
+
+            if (idError.value && passError.value && nameError.value) {
                 error.value = "すべて入力してください"
                 return@Button
             }
+            else if (idError.value){
+                error.value = "IDを入力してください"
+                return@Button
+            } else if (passError.value){
+                error.value = "パスワードを入力してください"
+                return@Button
+            }else if (nameError.value){
+                error.value = "名前を入力してください"
+                return@Button
+            }
+
             saving.value = true
 
             scope.launch {
