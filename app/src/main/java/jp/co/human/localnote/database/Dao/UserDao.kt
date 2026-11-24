@@ -11,6 +11,9 @@ interface UserDao{
     @Query("SELECT COUNT(*) FROM users")
     suspend fun count(): Int
 
+    @Query("SELECT * FROM users WHERE loginId = :id LIMIT 1")
+    suspend fun findById(id: String): UserEntity?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(userEntity: UserEntity): Long
 }
