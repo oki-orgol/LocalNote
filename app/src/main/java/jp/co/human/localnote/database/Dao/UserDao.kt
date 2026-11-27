@@ -14,6 +14,11 @@ interface UserDao{
     @Query("SELECT * FROM users WHERE loginId = :id LIMIT 1")
     suspend fun findById(id: String): UserEntity?
 
+    @Query("UPDATE users SET name = :name WHERE loginId = :id")
+    suspend fun updateName(id: String, name: String): Int
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(userEntity: UserEntity): Long
+
+
 }
