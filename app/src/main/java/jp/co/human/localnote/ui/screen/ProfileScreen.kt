@@ -41,7 +41,7 @@ fun ProfileScreen(userId: String, onBack: () -> Unit, onLogout: () -> Unit) {
 
         if (!ready.value){
             Text(message.value)
-            Button(onClick = onBack) { Text("ログアウトしてホームへ戻る") }
+            Button(onClick = onLogout) { Text("ログアウトしてホームへ戻る") }
         } else {
             TextField(
                 name.value, { name.value = it },

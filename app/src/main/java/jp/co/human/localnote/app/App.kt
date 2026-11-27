@@ -34,7 +34,7 @@ fun App(){
                 onLogout = {
                 userId.value = ""
                 nav.navigate("login") {
-                    popUpTo("home") { inclusive = true}
+                    popUpTo(0) { inclusive = true}
                 }
             },
             onProfile = {
@@ -45,12 +45,12 @@ fun App(){
             RegisterScreen(onDone = {nav.popBackStack()})
         }
         composable("profile"){
-            ProfileScreen(userId.value,
+            ProfileScreen(/*userId.value*/"not_exist_id",
                 onBack = { nav.popBackStack() },
                 onLogout = {
                     userId.value = ""
                     nav.navigate("login"){
-                        popUpTo("home"){ inclusive = true }
+                        popUpTo(0){ inclusive = true }
                     }
                 })
         }
