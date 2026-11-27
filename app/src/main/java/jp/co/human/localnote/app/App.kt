@@ -46,7 +46,13 @@ fun App(){
         }
         composable("profile"){
             ProfileScreen(userId.value,
-                onBack = { nav.popBackStack() })
+                onBack = { nav.popBackStack() },
+                onLogout = {
+                    userId.value = ""
+                    nav.navigate("login"){
+                        popUpTo("home"){ inclusive = true }
+                    }
+                })
         }
     }
 }

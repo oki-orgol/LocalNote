@@ -16,7 +16,7 @@ import jp.co.human.localnote.database.provider.DbProvider
 import kotlinx.coroutines.launch
 
 @Composable
-fun ProfileScreen(userId: String, onBack: () -> Unit) {
+fun ProfileScreen(userId: String, onBack: () -> Unit, onLogout: () -> Unit) {
     val context = LocalContext.current
     val dao = remember { DbProvider.get(context).userDao() }
     val scope = rememberCoroutineScope()
@@ -28,6 +28,7 @@ fun ProfileScreen(userId: String, onBack: () -> Unit) {
         val user = dao.findById(userId)
         if (user == null){
             message.value = "ユーザーが見つかりません"
+            ready.value = false
         } else {
             name.value = user.name
             ready.value = true
@@ -37,25 +38,33 @@ fun ProfileScreen(userId: String, onBack: () -> Unit) {
     ScreenFrame{
         Text("プロフィール")
         Text("ID:" + userId)
-        TextField(name.value, { name.value = it},
-            label = { Text("名前") }, enabled = ready.value)
 
-        Button(enabled = ready.value, onClick = {
-            scope.launch {
-                if (name.value.isBlank()){
-                    message.value = "名前を入力して下さい"
-                } else {
-                    val rows = dao.updateName(
-                        userId, name.value.trim()
-                    )
-                    message.value = if (rows == 1) "保存しました"
-                        else "保存できませんでした"
-                }
-            }
-        }) {
-            Text("保存")
-        }
+        if (!ready.value){
             Text(message.value)
-            TextButton(onClick = onBack) { Text("戻る")}
+            Button(onClick = onBack) { Text("ログアウトしてホームへ戻る") }
+        } else {
+            TextField(
+                name.value, { name.value = it },
+                label = { Text("名前") }, enabled = ready.value
+            )
+
+            Button(enabled = ready.value, onClick = {
+                scope.launch {
+                    if (name.value.isBlank()) {
+                        message.value = "名前を入力して下さい"
+                    } else {
+                        val rows = dao.updateName(
+                            userId, name.value.trim()
+                        )
+                        message.value = if (rows == 1) "保存しました"
+                        else "保存できませんでした"
+                    }
+                }
+            }) {
+                Text("保存")
+            }
+            Text(message.value)
+            TextButton(onClick = onBack) { Text("戻る") }
+        }
     }
 }
