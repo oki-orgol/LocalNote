@@ -3,6 +3,7 @@ package jp.co.human.localnote.ui.screen
 import android.widget.Button
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,7 +39,23 @@ fun ProfileScreen(userId: String, onBack: () -> Unit) {
         Text("ID:" + userId)
         TextField(name.value, { name.value = it},
             label = { Text("名前") }, enabled = ready.value)
+
+        Button(enabled = ready.value, onClick = {
+            scope.launch {
+                if (name.value.isBlank()){
+                    message.value = "名前を入力して下さい"
+                } else {
+                    val rows = dao.updateName(
+                        userId, name.value.trim()
+                    )
+                    message.value = if (rows == 1) "保存しました"
+                        else "保存できませんでした"
+                }
+            }
+        }) {
+            Text("保存")
+        }
+            Text(message.value)
+            TextButton(onClick = onBack) { Text("戻る")}
     }
-
-
 }
