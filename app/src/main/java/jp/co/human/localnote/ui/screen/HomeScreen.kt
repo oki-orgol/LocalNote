@@ -14,7 +14,7 @@ import jp.co.human.localnote.database.entity.UserEntity
 import jp.co.human.localnote.database.provider.DbProvider
 
 @Composable
-fun HomeScreen(userId: String, onLogout: () -> Unit){
+fun HomeScreen(userId: String, onLogout: () -> Unit, onProfile: () -> Unit){
     val context = LocalContext.current
     val dao = remember { DbProvider.get(context).userDao()}
     val user = remember { mutableStateOf<UserEntity?>(null) }
@@ -36,6 +36,10 @@ fun HomeScreen(userId: String, onLogout: () -> Unit){
             "名前: ${user.value?.name ?:"読み込み中..."}",
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.End)
+
+        Button(onClick = onProfile) {
+            Text("プロフィール編集")
+        }
 
         Button(onClick = onLogout) {
             Text("ログアウト")

@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import jp.co.human.localnote.ui.screen.HomeScreen
 import jp.co.human.localnote.ui.screen.LoginScreen
+import jp.co.human.localnote.ui.screen.ProfileScreen
 import jp.co.human.localnote.ui.screen.RegisterScreen
 
 @Composable
@@ -35,11 +36,17 @@ fun App(){
                 nav.navigate("login") {
                     popUpTo("home") { inclusive = true}
                 }
+            },
+            onProfile = {
+                nav.navigate("profile")
             })
         }
-
         composable("register") {
             RegisterScreen(onDone = {nav.popBackStack()})
+        }
+        composable("profile"){
+            ProfileScreen(userId.value,
+                onBack = { nav.popBackStack() })
         }
     }
 }
